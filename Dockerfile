@@ -15,11 +15,10 @@ RUN apt-get install -y \
 
 
 ENV RBENV_ROOT /usr/local/rbenv
-ENV PATH       /usr/local/rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+ENV PATH       /usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 
 RUN curl https://raw.githubusercontent.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
 
-ADD environment /etc/environment
 ADD default-gems /usr/local/rbenv/default-gems
 
 RUN curl -fsSL https://gist.github.com/mislav/a18b9d7f0dc5b9efc162.txt | rbenv install --patch 2.1.1 rbenv global 2.1.1
@@ -27,4 +26,3 @@ RUN rbenv global 2.1.1
 
 ADD rbenv.sh /etc/profile.d/rbenv.sh
 RUN chmod a+x /etc/profile.d/rbenv.sh
-RUN echo "source /etc/profile.d/rbenv.sh" >> /etc/bash.bashrc
